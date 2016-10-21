@@ -1,0 +1,32 @@
+"""q=input()
+for i in range(q):
+    nm=raw_input().strip().split(" ")
+    v=int(nm[0])
+    e=int(nm[1])
+    for j in range(e):"""
+
+
+graph = {'A': set(['B', 'C']),
+                 'B': set(['A', 'D', 'E']),
+                 'C': set(['A', 'F']),
+                 'D': set(['B']),
+                 'E': set(['B', 'F']),
+                 'F': set(['C', 'E'])}
+
+def bfs_paths(graph, start, goal):
+    p=[]
+    queue = [(start, [start])]
+    while queue:
+        (vertex, path) = queue.pop(0)
+
+        for next in graph[vertex] - set(path):
+            if next == goal:
+                #sw cyield path + [next]
+            else:
+                queue.append((next, path + [next]))
+            p=p+queue
+            #print queue
+            #print path
+
+    print p
+print list(bfs_paths(graph, 'A', 'F')) # [['A', 'C', 'F'], ['A', 'B', 'E', 'F']]
